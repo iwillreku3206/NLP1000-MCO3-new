@@ -29,3 +29,15 @@ corpora = parallel_corpora[
 ][['language1_text', 'language2_text']]
     
 corpora.to_csv("english-to-yami-corpora.csv")
+
+corpora = parallel_corpora[
+    (parallel_corpora['language1'] == 'bicol') 
+     & (parallel_corpora['language2'] == 'english')
+][['language1_text', 'language2_text']]
+
+corpora['temp'] = corpora['language1_text']
+corpora['language1_text'] = corpora['language2_text']
+corpora['language2_text'] = corpora['temp']
+corpora = corpora.drop(columns=['temp'])
+    
+corpora.to_csv("english-to-bicol-corpora.csv")
